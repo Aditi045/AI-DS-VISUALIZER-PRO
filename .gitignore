@@ -1,0 +1,42 @@
+# Secrets and local configuration
+.env
+.env.*
+!.env.example
+backend/.env
+frontend/.env
+
+# Python
+backend/.venv/
+backend/.runtime-packages/
+backend/__pycache__/
+backend/app/**/__pycache__/
+backend/tests/__pycache__/
+backend/.pytest_cache/
+*.pyc
+*.pyo
+
+# Local databases and runtime files
+*.db
+*.sqlite
+*.sqlite3
+
+# Node/Vite
+node_modules/
+frontend/node_modules/
+dist/
+frontend/dist/
+frontend/.vite/
+
+# Logs and temporary output
+*.log
+logs/
+tmp/
+temp/
+
+# Editors and operating-system files
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.DS_Store
+Thumbs.db
+*.swp

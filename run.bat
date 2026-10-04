@@ -1,0 +1,6 @@
+@echo off
+echo Starting AI-DS VISUALIZER PRO Backend...
+start cmd /k "cd backend && pip install -r requirements.txt && uvicorn app.main:app --reload --port 8000"
+
+echo Starting AI-DS VISUALIZER PRO Frontend...
+start cmd /k "cd frontend && npm run dev"
