@@ -53,7 +53,7 @@ export const Navbar: React.FC<NavbarProps> = ({ user, onLogout, onOpenCopilot })
   ];
 
   return (
-    <nav className="relative z-50 flex items-center justify-between px-6 py-3 bg.0A1120] bg-[#0A1120]/90 backdrop-blur-md border-b border-[#24344A]">
+    <nav className="relative z-50 flex items-center justify-between px-6 py-3 bg-[#0A1120]/90 backdrop-blur-md border-b border-[#24344A]">
       {/* Brand & Main Links */}
       <div className="flex items-center gap-8">
         <Link to="/dashboard" className="flex items-center gap-2 text-xl font-extrabold tracking-tight text-[#22D3EE] hover:opacity-90 transition-opacity">

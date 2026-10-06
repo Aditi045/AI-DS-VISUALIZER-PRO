@@ -1,7 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap');
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
 :root { --bg:#080b12; --workspace:#0d1117; --panel:#111827; --panel-raised:#151b26; --panel-input:#0b1220; --border:#273244; --border-soft:#1c2636; --accent:#22d3ee; --accent-blue:#38bdf8; --accent-purple:#8b5cf6; --success:#22c55e; --warning:#f59e0b; --danger:#ef4444; --text:#f8fafc; --text-secondary:#cbd5e1; --text-muted:#64748b; --radius:12px; --shadow:0 18px 50px #00000026; font-family:Manrope, system-ui, sans-serif; color:var(--text); background:var(--bg); font-synthesis:none; }
 * { box-sizing:border-box; }
