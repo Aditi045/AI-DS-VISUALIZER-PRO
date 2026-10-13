@@ -10,97 +10,116 @@ interface ArrayVisualizerProps {
     compareIndices?: [number, number];
     swapping?: [number, number];
     sortedIndex?: number;
+    operationType?: 'current' | 'accessed' | 'modified' | 'compared';
   };
 }
 
 export const ArrayVisualizer: React.FC<ArrayVisualizerProps> = ({ state, highlight }) => {
-  const items: any[] = Array.isArray(state) ? state : [10, 20, 30, 40, 50];
-  const highlightedIndices = highlight?.indices || [];
+  const items: any[] = Array.isArray(state) && state.length > 0 ? state : [10, 20, 30, 40, 50];
+  const highlightedIndices = highlight?.indices || (items.length > 2 ? [2] : [0]);
   const compareIndices: number[] = highlight?.compareIndices || [];
   const swappingIndices: number[] = highlight?.swapping || [];
-  const pointers = highlight?.pointers || {};
 
   return (
-    <div className="flex flex-col items-center justify-center h-full w-full p-6 select-none">
-      {/* Pointers row above array */}
-      <div className="flex items-end justify-center gap-3 mb-2 h-10 w-full overflow-x-auto">
-        {items.map((_, idx) => {
-          const activePointerKeys = Object.entries(pointers)
-            .filter(([_, pos]) => pos === idx)
-            .map(([k]) => k.toUpperCase());
-          return (
-            <div key={`ptr-${idx}`} className="w-16 flex flex-col items-center justify-end text-xs font-mono font-bold text-cyan-400">
-              {activePointerKeys.length > 0 && (
-                <motion.div
-                  initial={{ y: -8, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  className="flex flex-col items-center"
-                >
-                  <span className="bg-cyan-950/80 border border-cyan-500/50 px-1.5 py-0.5 rounded text-[10px] tracking-tight">
-                    {activePointerKeys.join(', ')}
-                  </span>
-                  <span className="text-cyan-400 text-sm">↓</span>
-                </motion.div>
-              )}
-            </div>
-          );
-        })}
-      </div>
-
-      {/* Main Array Cells */}
-      <div className="flex items-center justify-center gap-3 p-4 bg-[#101827]/80 rounded-xl border border-[#24344A] shadow-2xl backdrop-blur-md overflow-x-auto max-w-full">
-        {items.map((val, idx) => {
-          const isComparing = compareIndices.includes(idx);
-          const isSwapping = swappingIndices.includes(idx);
-          const isHighlighted = highlightedIndices.includes(idx);
-          const isNull = val === null || val === undefined;
-
-          let bgClass = 'bg-[#151F2E] border-[#24344A] text-[#F8FAFC]';
-          if (isSwapping) {
-            bgClass = 'bg-purple-900/60 border-purple-400 text-purple-200 shadow-[0_0_15px_rgba(168,85,247,0.4)]';
-          } else if (isComparing) {
-            bgClass = 'bg-indigo-900/60 border-indigo-400 text-indigo-200 shadow-[0_0_15px_rgba(99,102,241,0.4)]';
-          } else if (isHighlighted) {
-            bgClass = 'bg-cyan-900/60 border-cyan-400 text-cyan-100 shadow-[0_0_15px_rgba(34,211,238,0.4)]';
-          }
-
-          return (
-            <motion.div
-              key={`cell-${idx}`}
-              layout
-              initial={{ scale: 0.8, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ type: 'spring', stiffness: 350, damping: 25 }}
-              className={`w-16 h-18 rounded-lg border-2 flex flex-col items-center justify-center font-mono font-bold transition-colors ${bgClass}`}
-            >
-              <span className="text-xl">{isNull ? '—' : val}</span>
-            </motion.div>
-          );
-        })}
-      </div>
-
-      {/* Index row below array */}
-      <div className="flex items-start justify-center gap-3 mt-2 w-full overflow-x-auto">
-        {items.map((_, idx) => (
-          <div key={`idx-${idx}`} className="w-16 flex flex-col items-center text-xs font-mono text-[#64748B]">
-            <span>[{idx}]</span>
+    <div className="flex flex-col items-center justify-center w-full h-full py-4 px-2 select-none">
+      <div className="flex flex-col items-center w-full max-w-2xl overflow-x-auto py-2">
+        {/* Index row header */}
+        <div className="flex items-center justify-center gap-2 mb-2 w-full">
+          <div className="w-12 text-right pr-2 text-xs font-mono font-bold text-[#64748B]">
+            Index
           </div>
-        ))}
+          <div className="flex items-center gap-2">
+            {items.map((_, idx) => {
+              const isCurrent = highlightedIndices.includes(idx);
+              return (
+                <div
+                  key={`idx-${idx}`}
+                  className={`w-16 text-center text-xs font-mono transition-colors ${
+                    isCurrent ? 'text-[#22D3EE] font-bold scale-110' : 'text-[#64748B]'
+                  }`}
+                >
+                  {idx}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Main Contiguous Array Blocks row */}
+        <div className="flex items-center justify-center gap-2 mb-3">
+          <div className="w-12" /> {/* alignment spacer */}
+          <div className="flex items-center gap-2 p-1.5 bg-[#0A1120]/80 rounded-2xl border border-[#24344A]/60 shadow-xl">
+            {items.map((val, idx) => {
+              const isComparing = compareIndices.includes(idx);
+              const isSwapping = swappingIndices.includes(idx);
+              const isCurrent = highlightedIndices.includes(idx);
+              const isNull = val === null || val === undefined;
+
+              // Border and glow style matching reference
+              let blockStyle = 'bg-[#101827] border-[#24344A] text-[#F8FAFC]';
+              if (isCurrent) {
+                blockStyle = 'bg-[#101827] border-2 border-[#22D3EE] text-[#22D3EE] shadow-[0_0_20px_rgba(34,211,238,0.45)] ring-1 ring-[#22D3EE]/50';
+              } else if (isSwapping) {
+                blockStyle = 'bg-[#101827] border-2 border-[#22C55E] text-[#22C55E] shadow-[0_0_20px_rgba(34,197,94,0.45)]';
+              } else if (isComparing) {
+                blockStyle = 'bg-[#101827] border-2 border-[#F59E0B] text-[#F59E0B] shadow-[0_0_20px_rgba(245,158,11,0.45)]';
+              }
+
+              return (
+                <motion.div
+                  key={`cell-${idx}`}
+                  layout
+                  initial={{ scale: 0.9, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  transition={{ type: 'spring', stiffness: 350, damping: 25 }}
+                  className={`w-16 h-18 rounded-xl border flex items-center justify-center font-mono font-extrabold text-xl transition-all duration-200 ${blockStyle}`}
+                >
+                  <span>{isNull ? '—' : val}</span>
+                </motion.div>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Pointers row with upward arrows directly beneath boxes */}
+        <div className="flex items-start justify-center gap-2 w-full mb-4">
+          <div className="w-12" /> {/* alignment spacer */}
+          <div className="flex items-start gap-2">
+            {items.map((_, idx) => {
+              const isCurrent = highlightedIndices.includes(idx);
+              return (
+                <div
+                  key={`ptr-${idx}`}
+                  className={`w-16 flex flex-col items-center justify-center font-mono text-xs transition-colors ${
+                    isCurrent ? 'text-[#22D3EE] font-bold' : 'text-[#64748B]'
+                  }`}
+                >
+                  <span className="text-sm leading-none mb-0.5">↑</span>
+                  <span className="text-[11px] tracking-tight">{`arr[${idx}]`}</span>
+                </div>
+              );
+            })}
+          </div>
+        </div>
       </div>
 
-      {/* Legend */}
-      <div className="flex items-center gap-5 mt-6 text-xs font-mono text-[#94A3B8]">
-        <div className="flex items-center gap-1.5">
-          <span className="w-3 h-3 rounded bg-cyan-500/80 border border-cyan-300" />
-          <span>Active / Targeted</span>
+      {/* Legend matching Reference 2 bottom */}
+      <div className="flex items-center justify-center gap-6 pt-3 border-t border-[#24344A]/60 w-full max-w-lg text-xs font-mono text-[#CBD5E1]">
+        <div className="flex items-center gap-2">
+          <span className="w-2.5 h-2.5 rounded-full bg-[#22D3EE] shadow-[0_0_8px_rgba(34,211,238,0.8)]" />
+          <span>Current</span>
         </div>
-        <div className="flex items-center gap-1.5">
-          <span className="w-3 h-3 rounded bg-indigo-500/80 border border-indigo-300" />
-          <span>Comparing</span>
+        <div className="flex items-center gap-2">
+          <span className="w-2.5 h-2.5 rounded-full bg-[#8B5CF6] shadow-[0_0_8px_rgba(139,92,246,0.8)]" />
+          <span>Accessed</span>
         </div>
-        <div className="flex items-center gap-1.5">
-          <span className="w-3 h-3 rounded bg-purple-500/80 border border-purple-300" />
-          <span>Swapping / Modifying</span>
+        <div className="flex items-center gap-2">
+          <span className="w-2.5 h-2.5 rounded-full bg-[#22C55E] shadow-[0_0_8px_rgba(34,197,94,0.8)]" />
+          <span>Modified</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <span className="w-2.5 h-2.5 rounded-full bg-[#F59E0B] shadow-[0_0_8px_rgba(245,158,11,0.8)]" />
+          <span>Compared</span>
         </div>
       </div>
     </div>

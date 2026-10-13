@@ -141,7 +141,7 @@ export const HeapVisualizer: React.FC<HeapVisualizerProps> = ({
       </div>
 
       {/* Heap index formula footer */}
-      <div className="mt-3 flex items-center gap-4 text-[11px] font-mono text-[#94A3B8]">
+      <div className="mt-3 flex flex-wrap items-center justify-center gap-3 sm:gap-4 text-[11px] font-mono text-[#94A3B8]">
         <div>Parent(i): <strong className="text-cyan-400">⌊(i-1)/2⌋</strong></div>
         <div>Left(i): <strong className="text-indigo-400">2i + 1</strong></div>
         <div>Right(i): <strong className="text-indigo-400">2i + 2</strong></div>

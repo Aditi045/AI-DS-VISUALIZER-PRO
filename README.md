@@ -2,6 +2,15 @@
 
 **Learn DSA. Ask AI. Execute. Visualize. Master.**
 
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-Vercel-black?logo=vercel)](https://ai-ds-visualizer-pro.vercel.app/dashboard)
+[![GitHub Repository](https://img.shields.io/badge/Source%20Code-GitHub-181717?logo=github)](https://github.com/SairajAgawane/AI--DS-Visualizer-Pro)
+
+## Live Demo
+
+Try the deployed application here:
+
+**[Open AI-DS Visualizer Pro](https://ai-ds-visualizer-pro.vercel.app/dashboard)**
+
 AI-DS Visualizer Pro is an interactive DSA learning workspace. Natural-language commands are converted into a small, validated operation language, executed by real Python data-structure implementations, and returned as step events for the React visualizer.
 
 ## What works
@@ -19,6 +28,31 @@ AI-DS Visualizer Pro is an interactive DSA learning workspace. Natural-language 
 - Authenticated Program Editor for user-entered C, C++, Java, and Python programs
 - Isolated subprocess execution with a five-second timeout, output limits, sanitized environment, and common dangerous-operation checks
 - Program output, compiler/runtime errors, line diagnostics, execution timeline, speed controls, and supported-operation visualization
+
+## Supported data-structure chapters
+
+The playground currently includes:
+
+| Chapter | Programs and algorithms |
+| --- | --- |
+| Array | Create, traverse, insert, delete, update, search |
+| Stack | Push, pop, peek, display, array implementation, linked-list implementation |
+| Queue | Enqueue, dequeue, front, rear, display |
+| Circular Queue | Enqueue, dequeue, front, rear, circular wrap-around |
+| Linked List | Create, insert at beginning/end/position, delete, search, traverse |
+| Doubly Linked List | Create, insert, delete, forward/backward traversal, search |
+| Binary Tree | Create, insert, inorder, preorder, postorder, level order |
+| Binary Search Tree | Insert, search, delete, inorder, preorder, postorder |
+| Heap | Create, insert, heapify, extract max/min, heap sort |
+| Graph | Create, add vertex, add edge, BFS, DFS, display |
+| Searching | Linear search, binary search |
+| Sorting | Bubble, selection, insertion, merge, quick sort |
+| Hash Table | Create, insert, search, delete, collision handling |
+| Recursion | Factorial, Fibonacci, recursive sum, recursive binary search |
+
+## Supported programming languages
+
+The authenticated Program Editor supports **C, C++, Java, and Python**. C, C++, and Java require the corresponding compiler or JDK to be installed on the backend host. Programs run with a bounded timeout and output limit, and compiler/runtime errors are returned to the editor with diagnostics.
 
 ## Architecture
 
@@ -169,6 +203,11 @@ After login, select **Program Editor** in the sidebar. Choose C, C++, Java, or P
 
 `POST /api/program/run` executes Python directly and compiles C/C++/Java when the corresponding local toolchain is installed. Java requires `javac` and `java` on PATH. Arbitrary code that cannot be safely mapped to a supported data structure still displays normal program output without a fabricated visualization.
 
-## Roadmap
+## Current limitations and roadmap
 
-The next production additions are authentication, persisted learning profiles, full AVL/doubly-linked visualizers, live provider adapters, voice transcription, and richer challenge/viva flows.
+- The local Copilot is a deterministic educational tutor; provider-backed AI is optional.
+- Arbitrary code is not given a fabricated visualization when supported operations cannot be recognized safely.
+- Google sign-in requires OAuth client configuration.
+- The subprocess runner should receive an additional container or OS-level sandbox for untrusted multi-user production workloads.
+
+Planned improvements include stronger isolated execution, richer provider-backed AI explanations, expanded challenge and quiz flows, and additional advanced data structures such as AVL trees.

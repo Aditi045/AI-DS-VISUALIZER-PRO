@@ -25,16 +25,16 @@ export default function Progress({ user, onLogout }: { user: any; onLogout: () =
     <div className="min-h-screen bg-[#050914] text-[#F8FAFC] font-sans flex flex-col">
       <Navbar user={user} onLogout={onLogout} onOpenCopilot={() => setIsCopilotOpen(true)} />
 
-      <main className="flex-1 max-w-7xl w-full mx-auto px-6 py-8">
-        <header className="mb-8">
+      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 py-6 sm:py-8">
+        <header className="mb-6 sm:mb-8">
           <div className="text-xs font-mono text-[#22D3EE] uppercase tracking-wider mb-2">ANALYTICS & MILESTONES</div>
-          <h1 className="text-3xl md:text-4xl font-extrabold text-[#F8FAFC]">Learning Progress & Stats</h1>
-          <p className="text-sm text-[#CBD5E1] mt-1">Track your program execution practice, streaks, and unlocked achievements.</p>
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#F8FAFC]">Learning Progress & Stats</h1>
+          <p className="text-xs sm:text-sm text-[#CBD5E1] mt-1">Track your program execution practice, streaks, and unlocked achievements.</p>
         </header>
 
         {/* Stats Row */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-          <div className="bg-[#0A1120] border border-[#24344A] rounded-2xl p-6 shadow-xl">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-6 sm:mb-8">
+          <div className="bg-[#0A1120] border border-[#24344A] rounded-2xl p-4 sm:p-6 shadow-xl">
             <h3 className="text-[#64748B] text-xs font-mono font-bold uppercase tracking-wider mb-2">Overall Completion</h3>
             <div className="text-3xl font-extrabold text-[#22D3EE]">80%</div>
             <div className="w-full bg-[#050914] rounded-full h-2 mt-4 overflow-hidden border border-[#24344A]">
@@ -42,7 +42,7 @@ export default function Progress({ user, onLogout }: { user: any; onLogout: () =
             </div>
           </div>
 
-          <div className="bg-[#0A1120] border border-[#24344A] rounded-2xl p-6 shadow-xl">
+          <div className="bg-[#0A1120] border border-[#24344A] rounded-2xl p-4 sm:p-6 shadow-xl">
             <h3 className="text-[#64748B] text-xs font-mono font-bold uppercase tracking-wider mb-2">Chapters Completed</h3>
             <div className="text-3xl font-extrabold text-[#F8FAFC]">
               {completedChaptersCount} <span className="text-sm text-[#64748B] font-normal">/ {totalChaptersCount}</span>
@@ -50,7 +50,7 @@ export default function Progress({ user, onLogout }: { user: any; onLogout: () =
             <div className="text-xs text-[#22C55E] mt-3 font-semibold">85% of chapters finished</div>
           </div>
 
-          <div className="bg-[#0A1120] border border-[#24344A] rounded-2xl p-6 shadow-xl">
+          <div className="bg-[#0A1120] border border-[#24344A] rounded-2xl p-4 sm:p-6 shadow-xl">
             <h3 className="text-[#64748B] text-xs font-mono font-bold uppercase tracking-wider mb-2">Programs Executed</h3>
             <div className="text-3xl font-extrabold text-[#F8FAFC]">
               {completedProgramsCount} <span className="text-sm text-[#64748B] font-normal">/ {totalProgramsCount}</span>
@@ -58,7 +58,7 @@ export default function Progress({ user, onLogout }: { user: any; onLogout: () =
             <div className="text-xs text-[#CBD5E1] mt-3">Interactive traces generated</div>
           </div>
 
-          <div className="bg-[#0A1120] border border-[#24344A] rounded-2xl p-6 shadow-xl">
+          <div className="bg-[#0A1120] border border-[#24344A] rounded-2xl p-4 sm:p-6 shadow-xl">
             <h3 className="text-[#64748B] text-xs font-mono font-bold uppercase tracking-wider mb-2">Current Daily Streak</h3>
             <div className="text-3xl font-extrabold text-[#F59E0B] flex items-center gap-2">
               <span>{streakDays} Days</span>
@@ -69,9 +69,9 @@ export default function Progress({ user, onLogout }: { user: any; onLogout: () =
         </div>
 
         {/* Chapter Breakdown & Achievements */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8">
           {/* Chapter Progress Breakdown */}
-          <div className="lg:col-span-2 bg-[#0A1120] border border-[#24344A] rounded-2xl p-6 shadow-xl">
+          <div className="lg:col-span-2 bg-[#0A1120] border border-[#24344A] rounded-2xl p-4 sm:p-6 shadow-xl">
             <h3 className="text-lg font-bold text-[#F8FAFC] mb-6">Chapter Mastery Breakdown</h3>
             <div className="space-y-4">
               {chapters.map((chap, idx) => {
@@ -104,7 +104,7 @@ export default function Progress({ user, onLogout }: { user: any; onLogout: () =
           </div>
 
           {/* Badges / Achievements */}
-          <div className="bg-[#0A1120] border border-[#24344A] rounded-2xl p-6 shadow-xl">
+          <div className="bg-[#0A1120] border border-[#24344A] rounded-2xl p-4 sm:p-6 shadow-xl">
             <h3 className="text-lg font-bold text-[#F8FAFC] mb-6">Unlocked Badges</h3>
             <div className="space-y-4">
               {badges.map((b) => (

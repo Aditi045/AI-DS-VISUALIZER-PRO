@@ -18,8 +18,8 @@ export const DoublyLinkedListVisualizer: React.FC<DoublyLinkedListVisualizerProp
   const highlightedIndices = highlight?.indices || [];
 
   return (
-    <div className="flex flex-col items-center justify-center h-full w-full p-6 select-none overflow-x-auto">
-      <div className="flex items-center min-w-max bg-[#101827]/80 backdrop-blur-md p-6 rounded-2xl border border-[#24344A] shadow-2xl">
+    <div className="flex flex-col items-center justify-center h-full w-full p-3 sm:p-6 select-none overflow-x-auto touch-pan-x">
+      <div className="flex items-center min-w-max bg-[#101827]/80 backdrop-blur-md p-4 sm:p-6 rounded-2xl border border-[#24344A] shadow-2xl">
         {/* Left Terminal NULL */}
         <div className="flex items-center gap-2 mr-3">
           <span className="px-3 py-2 bg-[#151F2E] border border-[#24344A] rounded-lg text-xs font-mono font-bold text-[#64748B]">
@@ -108,7 +108,7 @@ export const DoublyLinkedListVisualizer: React.FC<DoublyLinkedListVisualizerProp
       </div>
 
       {/* Metrics footer */}
-      <div className="mt-5 flex items-center gap-6 text-xs font-mono text-[#94A3B8]">
+      <div className="mt-4 flex flex-wrap items-center justify-center gap-3 sm:gap-6 text-xs font-mono text-[#94A3B8]">
         <div>Nodes: <strong className="text-cyan-400">{nodes.length}</strong></div>
         <div>Type: <strong className="text-indigo-400">Doubly Linked List</strong></div>
         <div>Pointers: <strong className="text-cyan-400">PREV (←) & NEXT (→)</strong></div>

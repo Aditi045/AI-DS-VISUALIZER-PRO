@@ -36,23 +36,46 @@ export default function Learn({ user, onLogout }: { user: any; onLogout: () => v
     <div className="min-h-screen bg-[#050914] text-[#F8FAFC] font-sans flex flex-col">
       <Navbar user={user} onLogout={onLogout} onOpenCopilot={() => setIsCopilotOpen(true)} />
 
-      <main className="flex-1 max-w-7xl w-full mx-auto px-6 py-8">
-        <header className="mb-8">
+      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 py-6 sm:py-8">
+        <header className="mb-6 sm:mb-8">
           <div className="text-xs font-mono text-[#22D3EE] uppercase tracking-wider mb-2">CURRICULUM & GUIDED PATHS</div>
-          <h1 className="text-3xl md:text-4xl font-extrabold text-[#F8FAFC]">Interactive DSA Learning Hub</h1>
-          <p className="text-sm text-[#CBD5E1] mt-1">Master computer science concepts through visual lessons, code walkthroughs, and quizzes.</p>
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#F8FAFC]">Interactive DSA Learning Hub</h1>
+          <p className="text-xs sm:text-sm text-[#CBD5E1] mt-1">Master computer science concepts through visual lessons, code walkthroughs, and quizzes.</p>
         </header>
 
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-          {/* Chapter Selector */}
-          <div className="bg-[#0A1120] border border-[#24344A] rounded-2xl p-4 shadow-xl h-fit">
+        {/* Mobile Horizontal Chapter Bar (< lg) */}
+        <div className="lg:hidden mb-6 overflow-x-auto touch-pan-x pb-2">
+          <div className="flex items-center gap-2 min-w-max">
+            {chapters.map((chap) => (
+              <button
+                key={`mobile-chap-${chap.id}`}
+                onClick={() => setSelectedChapter(chap.id)}
+                className={`flex items-center gap-2 px-3.5 py-2.5 rounded-xl text-xs font-semibold border transition-all min-h-[44px] ${
+                  selectedChapter === chap.id
+                    ? 'bg-[#131D2D] text-[#22D3EE] border-[#22D3EE]/50 shadow-[0_0_12px_rgba(34,211,238,0.2)]'
+                    : 'bg-[#0A1120] text-[#CBD5E1] border-[#24344A] hover:bg-[#131D2D]/60'
+                }`}
+              >
+                <span>{chap.icon}</span>
+                <span>{chap.label}</span>
+                <span className="text-[10px] text-[#64748B] bg-[#050914] px-1.5 py-0.5 rounded border border-[#24344A]">
+                  {chap.programs.length}
+                </span>
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 sm:gap-8">
+          {/* Chapter Selector (Desktop >= lg) */}
+          <div className="hidden lg:block bg-[#0A1120] border border-[#24344A] rounded-2xl p-4 shadow-xl h-fit">
             <h3 className="text-xs font-mono font-bold text-[#64748B] uppercase tracking-wider px-3 mb-3">All Chapters</h3>
             <div className="space-y-1">
               {chapters.map((chap) => (
                 <button
                   key={chap.id}
                   onClick={() => setSelectedChapter(chap.id)}
-                  className={`w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-xs font-semibold transition-all ${
+                  className={`w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-xs font-semibold transition-all min-h-[40px] ${
                     selectedChapter === chap.id
                       ? 'bg-[#131D2D] text-[#22D3EE] border border-[#22D3EE]/30 shadow-md'
                       : 'text-[#CBD5E1] hover:text-white hover:bg-[#131D2D]/50'
@@ -72,19 +95,19 @@ export default function Learn({ user, onLogout }: { user: any; onLogout: () => v
 
           {/* Lessons List */}
           <div className="lg:col-span-3 space-y-6">
-            <div className="bg-[#0A1120] border border-[#24344A] rounded-2xl p-6 shadow-xl flex items-center justify-between">
+            <div className="bg-[#0A1120] border border-[#24344A] rounded-2xl p-4 sm:p-6 shadow-xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
               <div>
                 <div className="flex items-center gap-3">
-                  <span className="text-3xl text-[#22D3EE]">{active.icon}</span>
-                  <h2 className="text-2xl font-bold text-[#F8FAFC]">{active.label} Masterclass</h2>
+                  <span className="text-2xl sm:text-3xl text-[#22D3EE]">{active.icon}</span>
+                  <h2 className="text-xl sm:text-2xl font-bold text-[#F8FAFC]">{active.label} Masterclass</h2>
                 </div>
-                <p className="text-xs text-[#CBD5E1] mt-2 max-w-xl">
+                <p className="text-xs text-[#CBD5E1] mt-2 max-w-xl leading-relaxed">
                   {active.programs.length} interactive programs ready in the playground. Master data layout, operational steps, and time/space complexity.
                 </p>
               </div>
               <button
                 onClick={() => navigate(`/playground/${active.id}`)}
-                className="px-5 py-3 bg-gradient-to-r from-[#22D3EE] to-[#38BDF8] text-[#050914] font-bold text-xs rounded-xl hover:opacity-90 transition-opacity shadow-[0_0_15px_rgba(34,211,238,0.3)] whitespace-nowrap"
+                className="w-full sm:w-auto px-5 py-3 min-h-[44px] bg-gradient-to-r from-[#22D3EE] to-[#38BDF8] text-[#050914] font-bold text-xs rounded-xl hover:opacity-90 transition-opacity shadow-[0_0_15px_rgba(34,211,238,0.3)] whitespace-nowrap text-center"
               >
                 Launch Playground →
               </button>

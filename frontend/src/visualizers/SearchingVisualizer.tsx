@@ -26,9 +26,9 @@ export const SearchingVisualizer: React.FC<SearchingVisualizerProps> = ({
   const isBinary = low !== undefined || high !== undefined || mid !== undefined;
 
   return (
-    <div className="flex flex-col items-center justify-between h-full w-full p-5 select-none">
+    <div className="flex flex-col items-center justify-between h-full w-full p-3 sm:p-5 select-none overflow-x-auto touch-pan-x">
       {/* Target and Range HUD */}
-      <div className="flex items-center gap-6 bg-[#101827]/80 border border-[#24344A] px-5 py-2.5 rounded-xl font-mono text-xs shadow-lg">
+      <div className="flex flex-wrap sm:flex-nowrap items-center justify-center gap-3 sm:gap-6 bg-[#101827]/80 border border-[#24344A] px-3 sm:px-5 py-2 sm:py-2.5 rounded-xl font-mono text-xs shadow-lg max-w-full overflow-x-auto">
         {target !== undefined && (
           <div>
             Target: <strong className="text-cyan-400 text-sm">{target}</strong>
@@ -36,7 +36,7 @@ export const SearchingVisualizer: React.FC<SearchingVisualizerProps> = ({
         )}
         {isBinary && (
           <>
-            <div className="w-px h-4 bg-[#24344A]" />
+            <div className="hidden sm:block w-px h-4 bg-[#24344A]" />
             <div>LOW: <strong className="text-emerald-400">{low}</strong></div>
             <div>MID: <strong className="text-cyan-400 text-sm font-bold">[{mid}] = {arr[mid ?? 0]}</strong></div>
             <div>HIGH: <strong className="text-indigo-400">{high}</strong></div>

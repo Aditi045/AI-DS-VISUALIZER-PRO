@@ -27,9 +27,9 @@ export const SortingVisualizer: React.FC<SortingVisualizerProps> = ({
   const maxVal = Math.max(...items, 1);
 
   return (
-    <div className="flex flex-col items-center justify-between h-full w-full p-4 select-none">
+    <div className="flex flex-col items-center justify-between h-full w-full p-2 sm:p-4 select-none overflow-x-auto touch-pan-x">
       {/* Bars Chart Canvas */}
-      <div className="flex items-end justify-center gap-3 w-full max-w-[480px] h-[220px] p-4 bg-[#101827]/80 rounded-2xl border border-[#24344A] shadow-2xl backdrop-blur-md">
+      <div className="flex items-end justify-center gap-2 sm:gap-3 w-full max-w-[480px] h-[200px] sm:h-[220px] p-3 sm:p-4 bg-[#101827]/80 rounded-2xl border border-[#24344A] shadow-2xl backdrop-blur-md overflow-x-auto">
         {items.map((val, idx) => {
           const isComparing = compareIndices.includes(idx);
           const isSwapping = swappingIndices.includes(idx);
@@ -73,7 +73,7 @@ export const SortingVisualizer: React.FC<SortingVisualizerProps> = ({
       </div>
 
       {/* Sorting Color Legend */}
-      <div className="flex items-center gap-5 mt-3 text-xs font-mono text-[#94A3B8]">
+      <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-5 mt-3 text-xs font-mono text-[#94A3B8]">
         <div className="flex items-center gap-1.5">
           <span className="w-3 h-3 rounded bg-cyan-400" />
           <span>Comparing</span>

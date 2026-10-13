@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { X, Send, Bot, Sparkles } from 'lucide-react';
 
 interface AICopilotModalProps {
   isOpen: boolean;
@@ -36,6 +37,23 @@ export const AICopilotModal: React.FC<AICopilotModalProps> = ({ isOpen, onClose,
   const [inputText, setInputText] = useState('');
   const [isThinking, setIsThinking] = useState(false);
 
+  // Close modal on Escape key
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        onClose();
+      }
+    };
+    if (isOpen) {
+      window.addEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = 'hidden';
+    }
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = '';
+    };
+  }, [isOpen, onClose]);
+
   if (!isOpen) return null;
 
   const quickActions = [
@@ -60,7 +78,7 @@ export const AICopilotModal: React.FC<AICopilotModalProps> = ({ isOpen, onClose,
       if (actionKey === 'explain_topic') {
         reply = `### 📖 Concept Explanation: ${chap}\n\n**${prog}** is a foundational structure in computer science.\n- **Core Mechanism**: Organizes data to allow efficient access and modification.\n- **Key Properties**: Predictable memory layout and strict operational rules.\n- **Real-world Use Cases**: Operating system scheduling, database indexing, browser history stack, and graph navigation.`;
       } else if (actionKey === 'explain_code') {
-        reply = `### 💻 Code Walkthrough (${lang})\n\nHere is how your current ${lang} code executes line-by-line:\n1. **Initialization**: Declares and structures memory allocation.\n2. **Operations**: Applies data transformations (insertions/traversals).\n3. **Termination**: Cleanly concludes execution and outputs results.`;
+        reply = `### 💻 Code Walkthrough (${lang})\n\nHeres how your current ${lang} code executes line-by-line:\n1. **Initialization**: Declares and structures memory allocation.\n2. **Operations**: Applies data transformations (insertions/traversals).\n3. **Termination**: Cleanly concludes execution and outputs results.`;
       } else if (actionKey === 'debug_code') {
         if (context?.error) {
           reply = `### 🐛 Debug Assistant\n\n**Detected Error**: \`${context.error}\`\n\n**Suggestion**: Check array bounds or variable assignments before accessing elements. Make sure input formats match expected types.`;
@@ -111,19 +129,19 @@ export const AICopilotModal: React.FC<AICopilotModalProps> = ({ isOpen, onClose,
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#050914]/80 backdrop-blur-md">
-      <div className="w-full max-w-2xl bg-[#0A1120] border border-[#24344A] rounded-2xl shadow-2xl overflow-hidden flex flex-col h-[650px] relative">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-[#050914]/85 backdrop-blur-md">
+      <div className="w-full max-w-2xl bg-[#0A1120] border border-[#24344A] rounded-3xl shadow-2xl overflow-hidden flex flex-col h-[90vh] sm:h-[650px] max-h-[90vh] relative">
         {/* Header */}
-        <div className="flex items-center justify-between px-6 py-4 bg-[#101827] border-b border-[#24344A]">
+        <div className="flex items-center justify-between px-4 sm:px-6 py-3.5 bg-[#101827] border-b border-[#24344A]">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-[#8B5CF6] to-[#22D3EE] p-0.5 flex items-center justify-center shadow-[0_0_15px_rgba(139,92,246,0.3)]">
+            <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-[#8B5CF6] to-[#22D3EE] p-0.5 flex items-center justify-center shadow-[0_0_15px_rgba(139,92,246,0.3)] shrink-0">
               <div className="w-full h-full bg-[#0A1120] rounded-[10px] flex items-center justify-center text-base">
                 🤖
               </div>
             </div>
             <div>
-              <h3 className="font-extrabold text-sm text-[#F8FAFC]">AI Student Copilot</h3>
-              <p className="text-[11px] text-[#22D3EE]">
+              <h3 className="font-extrabold text-xs sm:text-sm text-[#F8FAFC]">AI Student Copilot</h3>
+              <p className="text-[10px] sm:text-[11px] text-[#22D3EE]">
                 Context: <span className="font-mono">{context?.chapterId?.toUpperCase() || 'PLAYGROUND'}</span>
                 {context?.language && ` · ${context.language.toUpperCase()}`}
               </p>
@@ -131,19 +149,20 @@ export const AICopilotModal: React.FC<AICopilotModalProps> = ({ isOpen, onClose,
           </div>
           <button
             onClick={onClose}
-            className="w-8 h-8 rounded-lg bg-[#131D2D] hover:bg-[#24344A] text-[#64748B] hover:text-white flex items-center justify-center text-sm transition-colors"
+            className="w-10 h-10 rounded-xl bg-[#131D2D] hover:bg-[#24344A] text-[#64748B] hover:text-white flex items-center justify-center text-sm transition-colors min-h-[40px] min-w-[40px]"
+            aria-label="Close AI Copilot"
           >
-            ✕
+            <X className="w-5 h-5" />
           </button>
         </div>
 
         {/* Action Chips */}
-        <div className="flex items-center gap-2 px-6 py-3 bg-[#0d1420] border-b border-[#24344A] overflow-x-auto select-none no-scrollbar">
+        <div className="flex items-center gap-2 px-4 sm:px-6 py-2.5 bg-[#0d1420] border-b border-[#24344A] overflow-x-auto select-none touch-pan-x">
           {quickActions.map((act) => (
             <button
               key={act.key}
               onClick={() => handleSendMessage(act.label, act.key)}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#131D2D] hover:bg-[#24344A] border border-[#24344A] hover:border-[#22D3EE]/50 text-xs font-medium text-[#CBD5E1] whitespace-nowrap transition-all"
+              className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-[#131D2D] hover:bg-[#24344A] border border-[#24344A] hover:border-[#22D3EE]/50 text-xs font-medium text-[#CBD5E1] whitespace-nowrap transition-all min-h-[38px]"
             >
               <span>{act.icon}</span>
               <span>{act.label}</span>
@@ -152,16 +171,16 @@ export const AICopilotModal: React.FC<AICopilotModalProps> = ({ isOpen, onClose,
         </div>
 
         {/* Chat Messages */}
-        <div className="flex-1 p-6 overflow-y-auto space-y-4 bg-[#050914]/50">
+        <div className="flex-1 p-4 sm:p-6 overflow-y-auto space-y-4 bg-[#050914]/50">
           {messages.map((msg) => (
             <div
               key={msg.id}
               className={`flex flex-col ${msg.sender === 'user' ? 'items-end' : 'items-start'}`}
             >
               <div
-                className={`max-w-[85%] rounded-2xl p-4 text-xs leading-relaxed font-sans ${
+                className={`max-w-[90%] sm:max-w-[85%] rounded-2xl p-3.5 sm:p-4 text-xs leading-relaxed font-sans ${
                   msg.sender === 'user'
-                    ? 'bg-[#22D3EE] text-[#050914] font-medium rounded-tr-none'
+                    ? 'bg-[#22D3EE] text-[#050914] font-medium rounded-tr-none shadow-md'
                     : 'bg-[#131D2D] text-[#F8FAFC] border border-[#24344A] rounded-tl-none shadow-md'
                 }`}
               >
@@ -178,8 +197,9 @@ export const AICopilotModal: React.FC<AICopilotModalProps> = ({ isOpen, onClose,
           ))}
 
           {isThinking && (
-            <div className="flex items-center gap-2 text-xs text-[#22D3EE] p-2 bg-[#131D2D]/40 rounded-lg w-fit border border-[#22D3EE]/20 animate-pulse">
-              <span>🤖 Copilot is thinking...</span>
+            <div className="flex items-center gap-2 text-xs text-[#22D3EE] p-2 bg-[#131D2D]/40 rounded-xl w-fit border border-[#22D3EE]/20 animate-pulse">
+              <Sparkles className="w-3.5 h-3.5 text-[#8B5CF6]" />
+              <span>Copilot is thinking...</span>
             </div>
           )}
         </div>
@@ -190,21 +210,22 @@ export const AICopilotModal: React.FC<AICopilotModalProps> = ({ isOpen, onClose,
             e.preventDefault();
             handleSendMessage();
           }}
-          className="p-4 bg-[#101827] border-t border-[#24344A] flex items-center gap-3"
+          className="p-3 sm:p-4 bg-[#101827] border-t border-[#24344A] flex items-center gap-2 sm:gap-3"
         >
           <input
             type="text"
             value={inputText}
             onChange={(e) => setInputText(e.target.value)}
-            placeholder="Ask AI Copilot about DSA, code execution, or concepts..."
-            className="flex-1 bg-[#050914] border border-[#24344A] rounded-xl py-3 px-4 text-xs text-[#F8FAFC] placeholder-[#64748B] focus:outline-none focus:border-[#22D3EE] transition-colors"
+            placeholder="Ask AI Copilot about DSA, code execution..."
+            className="flex-1 bg-[#050914] border border-[#24344A] rounded-xl py-2.5 px-3.5 text-xs text-[#F8FAFC] placeholder-[#64748B] focus:outline-none focus:border-[#22D3EE] transition-colors min-h-[44px]"
           />
           <button
             type="submit"
             disabled={!inputText.trim()}
-            className="px-5 py-3 bg-gradient-to-r from-[#22D3EE] to-[#8B5CF6] text-white font-bold text-xs rounded-xl hover:opacity-90 disabled:opacity-50 transition-opacity shadow-[0_0_15px_rgba(34,211,238,0.3)]"
+            className="px-4 py-2.5 bg-gradient-to-r from-[#22D3EE] to-[#8B5CF6] text-white font-bold text-xs rounded-xl hover:opacity-90 disabled:opacity-50 transition-opacity shadow-[0_0_15px_rgba(34,211,238,0.3)] min-h-[44px] shrink-0 flex items-center gap-1.5"
           >
-            Send →
+            <span>Send</span>
+            <Send className="w-3.5 h-3.5" />
           </button>
         </form>
       </div>

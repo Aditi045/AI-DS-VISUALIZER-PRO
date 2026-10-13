@@ -123,18 +123,18 @@ export const BSTVisualizer: React.FC<BSTVisualizerProps> = ({
       </div>
 
       {/* Educational Decision Flow Diagram */}
-      <div className="flex items-center gap-4 bg-[#101827]/80 border border-[#24344A] rounded-xl px-5 py-2.5 text-xs font-mono text-[#94A3B8]">
-        <div className="flex items-center gap-1.5">
+      <div className="flex flex-wrap sm:flex-nowrap items-center justify-center gap-2 sm:gap-4 bg-[#101827]/80 border border-[#24344A] rounded-xl px-3 sm:px-5 py-2 sm:py-2.5 text-[11px] sm:text-xs font-mono text-[#94A3B8] max-w-full overflow-x-auto">
+        <div className="flex items-center gap-1.5 whitespace-nowrap">
           <span className="text-cyan-400">target &lt; node</span>
           <span className="text-cyan-300 font-bold">➔ Go LEFT</span>
         </div>
-        <div className="w-px h-4 bg-[#24344A]" />
-        <div className="flex items-center gap-1.5">
+        <div className="hidden sm:block w-px h-4 bg-[#24344A]" />
+        <div className="flex items-center gap-1.5 whitespace-nowrap">
           <span className="text-emerald-400">target == node</span>
           <span className="text-emerald-300 font-bold">➔ MATCH</span>
         </div>
-        <div className="w-px h-4 bg-[#24344A]" />
-        <div className="flex items-center gap-1.5">
+        <div className="hidden sm:block w-px h-4 bg-[#24344A]" />
+        <div className="flex items-center gap-1.5 whitespace-nowrap">
           <span className="text-indigo-400">target &gt; node</span>
           <span className="text-indigo-300 font-bold">➔ Go RIGHT</span>
         </div>
