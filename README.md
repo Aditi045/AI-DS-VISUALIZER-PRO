@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # AI-DS VISUALIZER PRO
 
 **Learn DSA. Ask AI. Execute. Visualize. Master.**
@@ -213,3 +214,6 @@ After login, select **Program Editor** in the sidebar. Choose C, C++, Java, or P
 Planned improvements include stronger isolated execution, richer provider-backed AI explanations, expanded challenge and quiz flows, and additional advanced data structures such as AVL trees.
 #   A I - D S - V I S U A L I Z E R - P R O  
  
+=======
+# AI-DS-VISUALIZER-PRO
+>>>>>>> dee278b3234f1cd2577144d62d094588c3d3b1fd
