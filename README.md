@@ -1,219 +1,163 @@
-<<<<<<< HEAD
-# AI-DS VISUALIZER PRO
+I can’t access the repository filesystem or run commands in this chat, so I can’t inspect the source, verify project-specific details, or save a `README.md` in the repository. The README below is based only on the information in your prompt. I’ve avoided inventing DSA modules, file paths, environment-variable names, test scripts, screenshots, or a license. Those details should be verified against the repository before publishing.
 
-**Learn DSA. Ask AI. Execute. Visualize. Master.**
+---
 
-[![Live Demo](https://img.shields.io/badge/Live%20Demo-Vercel-black?logo=vercel)](https://ai-ds-visualizer-pro.vercel.app/dashboard)
-[![GitHub Repository](https://img.shields.io/badge/Source%20Code-GitHub-181717?logo=github)](https://github.com/SairajAgawane/AI--DS-Visualizer-Pro)
+# AI-DS Visualizer Pro
 
-## Live Demo
+**Learn data structures and algorithms through code, visualizations, and AI-assisted explanations.**
 
-Try the deployed application here:
+AI-DS Visualizer Pro is an AI-powered learning platform designed to help students understand data structures and algorithms. It combines code examples, step-by-step execution, visualizations, and Google Gemini API-assisted explanations in an interactive learning experience.
 
-**[Open AI-DS Visualizer Pro](https://ai-ds-visualizer-pro.vercel.app/dashboard)**
+> **Implementation note:** The exact list of available algorithms, supported languages, and AI features depends on the current application implementation. See the project itself for the definitive inventory.
 
-AI-DS Visualizer Pro is an interactive DSA learning workspace. Natural-language commands are converted into a small, validated operation language, executed by real Python data-structure implementations, and returned as step events for the React visualizer.
+## Table of Contents
 
-## What works
+- [Overview](#overview)
+- [Key Features](#key-features)
+- [Technology Stack](#technology-stack)
+- [Getting Started](#getting-started)
+- [Configuration](#configuration)
+- [Development](#development)
+- [Production Build](#production-build)
+- [Deployment](#deployment)
+- [Security](#security)
+- [Contributing](#contributing)
+- [License](#license)
+- [Project Links](#project-links)
 
-- Stack, queue, linked list, BST, heap, and graph execution
-- Safe local natural-language parser (no API key required for the demo)
-- Strict Pydantic validation and structured errors such as Stack Underflow
-- State snapshots, event history, operation complexity, and step controls
-- Animated React visualizers for linear, tree, and graph structures
-- Built-in DSA tutor with context-aware explanations
-- Challenges, sorting/searching algorithm endpoints, safe code pattern analysis, and educational code generation
-- SQLite operation history, progress, XP, and achievements endpoints
-- SQLite email/password accounts and optional Google Identity sign-in
-- Optional AI provider boundary can be added without exposing keys to the frontend
-- Authenticated Program Editor for user-entered C, C++, Java, and Python programs
-- Isolated subprocess execution with a five-second timeout, output limits, sanitized environment, and common dangerous-operation checks
-- Program output, compiler/runtime errors, line diagnostics, execution timeline, speed controls, and supported-operation visualization
+## Overview
 
-## Supported data-structure chapters
+Data structures and algorithms can be difficult to learn from static examples alone. AI-DS Visualizer Pro aims to make these concepts easier to explore by connecting code with visual, step-by-step explanations.
 
-The playground currently includes:
+The platform is intended for students learning DSA, developers reviewing algorithm behavior, and educators looking for an interactive way to demonstrate concepts.
 
-| Chapter | Programs and algorithms |
-| --- | --- |
-| Array | Create, traverse, insert, delete, update, search |
-| Stack | Push, pop, peek, display, array implementation, linked-list implementation |
-| Queue | Enqueue, dequeue, front, rear, display |
-| Circular Queue | Enqueue, dequeue, front, rear, circular wrap-around |
-| Linked List | Create, insert at beginning/end/position, delete, search, traverse |
-| Doubly Linked List | Create, insert, delete, forward/backward traversal, search |
-| Binary Tree | Create, insert, inorder, preorder, postorder, level order |
-| Binary Search Tree | Insert, search, delete, inorder, preorder, postorder |
-| Heap | Create, insert, heapify, extract max/min, heap sort |
-| Graph | Create, add vertex, add edge, BFS, DFS, display |
-| Searching | Linear search, binary search |
-| Sorting | Bubble, selection, insertion, merge, quick sort |
-| Hash Table | Create, insert, search, delete, collision handling |
-| Recursion | Factorial, Fibonacci, recursive sum, recursive binary search |
+## Key Features
 
-## Supported programming languages
+Based on the project description, the platform is designed to provide:
 
-The authenticated Program Editor supports **C, C++, Java, and Python**. C, C++, and Java require the corresponding compiler or JDK to be installed on the backend host. Programs run with a bounded timeout and output limit, and compiler/runtime errors are returned to the editor with diagnostics.
+- **DSA learning materials** with code examples.
+- **Step-by-step execution** to help explain how an algorithm or operation progresses.
+- **Visualizations** that make data structure and algorithm behavior easier to follow.
+- **AI-assisted explanations** through Google Gemini API integration.
+- **A code playground** for interacting with examples.
 
-## Architecture
+The specific DSA modules, operations, supported languages, and playground capabilities should be confirmed in the application before being listed individually.
 
-`Login → Program Editor → language executor → output/errors + detected steps → timeline/visualizer`
+## Technology Stack
 
-The natural-language DSA path still uses the allowlisted operation engine. The Program Editor uses a separate subprocess runner in a temporary directory. It never receives application secrets in its environment. A production deployment should run this runner inside a container or OS-level sandbox as well.
+| Technology | Role |
+|---|---|
+| React | User interface |
+| TypeScript and JavaScript | Application programming languages |
+| Vite | Development and build tooling |
+| Tailwind CSS | Styling |
+| Node.js | JavaScript development runtime and tooling |
+| Google Gemini API | AI-assisted capabilities |
+| Git and GitHub | Version control and source hosting |
+| Vercel | Deployment platform |
 
-The AI/parser layer can only produce allowlisted structured operations. It never executes pasted Python, JavaScript, shell, or model-generated code.
+## Getting Started
 
-## Run locally
+### Prerequisites
 
-### Backend
+Install the following before setting up the project:
 
-Requires Python 3.11+.
+- [Node.js](https://nodejs.org/) — use a version compatible with the project.
+- npm, or the package manager indicated by the repository lockfile.
+- Git.
 
-```powershell
-cd backend
-pip install -r requirements.txt
-uvicorn app.main:app --reload --port 8000
+### Installation
+
+```bash
+git clone https://github.com/SairajAgawane/AI--DS-Visualizer-Pro.git
+cd AI--DS-Visualizer-Pro
+npm install
 ```
 
-### Frontend
+### Run locally
 
-Requires Node.js 20+.
+The following command is typical for a Vite development server. Confirm that the `dev` script exists in `package.json`:
 
-```powershell
-cd frontend
-npm install
+```bash
 npm run dev
 ```
 
-Open `http://localhost:5173`. The frontend uses `VITE_API_URL` when set, otherwise `http://localhost:8000`.
+Vite will print the local development URL in the terminal.
 
-## Authentication configuration
+## Configuration
 
-Email/password signup works locally after the backend starts. To enable Google sign-in:
+The application is described as integrating with the Google Gemini API. Check the source code and project configuration to determine the exact environment-variable name and setup required by the current implementation.
 
-1. Create a Google OAuth Web Client ID in Google Cloud Console.
-2. Add the same client ID to `backend/.env` as `GOOGLE_CLIENT_ID` and `frontend/.env` as `VITE_GOOGLE_CLIENT_ID`.
-3. Add `http://localhost:5173` to the OAuth client’s authorized JavaScript origins.
-4. Set a private `AUTH_SECRET` in `backend/.env`.
+If the application requires an API key:
 
-Copy `backend/.env.example` as a starting point. Never commit `.env` or expose `GOOGLE_CLIENT_ID` from the backend secret configuration; the frontend client ID is public by Google design, while the signed app token secret remains backend-only.
+1. Create a local environment file using the filename and variable names expected by the project.
+2. Add your own Gemini API key to that local file.
+3. Keep the file out of version control; never commit API keys or other secrets.
+4. For deployed applications, configure secrets through the hosting provider’s environment-variable settings.
 
-## Example commands
+Do not expose a Gemini API key in client-side code or publish it in the repository. If the current implementation calls Gemini directly from the browser, review that design before deploying with a private key.
 
-- `Create a stack and push 10, 20 and 30.`
-- `Pop the top element.`
-- `Create a queue and enqueue 1, 2, 3.`
-- `Create linked list 10 20 30 and reverse the list.`
-- `Create a binary search tree using 50,30,70,20,40,60,80.`
-- `Create graph. Connect Pune to Mumbai with weight 2.`
+## Development
 
-## API highlights
+Use the scripts defined in `package.json`. The following Vite scripts are common, but should be verified against the repository before use:
 
-- `GET /api/health`
-- `POST /api/ai/parse`
-- `POST /api/execute/`
-- `POST /api/chat/`
-- `POST /api/challenge/`
-- `GET|DELETE /api/history`
-- `GET /api/progress`, `GET /api/achievements`
-- `POST /api/algorithm/run`
-- `POST /api/code/analyze`, `POST /api/code/generate`
+```bash
+npm run dev
+npm run build
+npm run preview
+```
 
-## Tests and verification
+The project’s test command, if one is configured, should also be documented here after checking `package.json`.
 
-```powershell
-cd backend
-pytest -q
-cd ../frontend
+## Production Build
+
+If the project defines a Vite build script, create a production build with:
+
+```bash
 npm run build
 ```
 
-The frontend production build is currently passing. If Python is not on PATH, install Python 3.11+ and rerun the backend commands.
+For a typical Vite application, the generated output is placed in `dist/`. Confirm the actual output directory in the Vite configuration before configuring deployment.
 
-## GitHub and Vercel deployment
+## Deployment
 
-This repository is a two-service application:
+Vercel supports deploying projects hosted on GitHub.
 
-- `frontend/` is a Vite React app and can be deployed to Vercel.
-- `backend/` is a FastAPI service that must run on a Python-capable host. It executes Python, C, C++, and Java programs in subprocesses, so it is not a static Vercel frontend function.
+1. Push the project to GitHub.
+2. Import the repository into Vercel.
+3. Configure the build command and output directory to match the project configuration.
+4. Add any required environment variables in the Vercel project settings.
+5. Deploy and check the application’s logs if the build or runtime fails.
 
-### Vercel settings
+Do not put secrets in committed files or public build configuration.
 
-When importing this repository into Vercel, set **Root Directory** to `frontend`.
+## Security
 
-- Framework preset: Vite
-- Build command: `npm run build`
-- Output directory: `dist`
-- Install command: `npm install`
+- Do not commit `.env` files, API keys, access tokens, or credentials.
+- Use environment variables for local configuration and Vercel’s secure environment-variable settings for deployments.
+- Review Gemini API usage and quota limits in the Google AI configuration associated with your key.
+- Ensure API keys are not exposed in browser-delivered code.
 
-`frontend/vercel.json` provides the SPA fallback so direct refreshes of `/playground`, `/playground/array`, and other client routes resolve to the React app.
+## Contributing
 
-### Environment variables
+Contributions are welcome. Before opening a pull request:
 
-Frontend (`frontend/.env` locally; Vercel Preview and Production settings):
+1. Fork the repository and create a focused branch.
+2. Make changes consistent with the existing code and formatting conventions.
+3. Run the available checks and build scripts defined in `package.json`.
+4. Update documentation when behavior or setup changes.
+5. Open a pull request describing the change and any relevant testing.
 
-```text
-VITE_API_URL=https://YOUR_BACKEND_DOMAIN
-VITE_GOOGLE_CLIENT_ID=YOUR_GOOGLE_WEB_CLIENT_ID
-```
+For significant changes, consider opening an issue first to discuss the proposed approach.
 
-`VITE_API_URL` must be the public HTTPS URL of the deployed FastAPI backend. Do not leave it as localhost in Vercel.
+## License
 
-Backend (`backend/.env` on the backend host):
+No license information was provided in the project details available for this README. Check the repository for a `LICENSE` file and update this section with its license before publishing. Without an applicable license, others may not have permission to use, modify, or distribute the project.
 
-```text
-DATABASE_URL=YOUR_POSTGRES_CONNECTION_STRING
-AUTH_SECRET=YOUR_LONG_RANDOM_SECRET
-CORS_ORIGINS=https://YOUR_VERCEL_DOMAIN,https://YOUR_CUSTOM_DOMAIN
-GOOGLE_CLIENT_ID=YOUR_GOOGLE_WEB_CLIENT_ID
-AI_PROVIDER=local
-AI_API_KEY=
-AI_MODEL=
-```
+## Project Links
 
-For local development, use the values in `backend/.env.example` and `frontend/.env.example`. Never commit `.env` files, database passwords, service-account files, or private keys. Because a database password was previously used during local setup, rotate that password before publishing the repository.
+- **GitHub repository:** [SairajAgawane/AI--DS-Visualizer-Pro](https://github.com/SairajAgawane/AI--DS-Visualizer-Pro)
 
-### GitHub commands
+---
 
-Run these from the project root after reviewing `git status`:
-
-```powershell
-git init
-git add .
-git commit -m "Prepare project for production deployment"
-git branch -M main
-git remote add origin YOUR_GITHUB_REPOSITORY_URL
-git push -u origin main
-```
-
-### Vercel process
-
-1. Sign in to Vercel with GitHub.
-2. Import the repository.
-3. Set Root Directory to `frontend`.
-4. Add the frontend environment variables above for Preview and Production.
-5. Deploy the frontend.
-6. Deploy the FastAPI backend separately and add its public URL as `VITE_API_URL`.
-7. Set backend `CORS_ORIGINS` to the Vercel domain.
-8. Add the Vercel domain to Google OAuth authorized JavaScript origins if Google login is enabled.
-9. Test login, chapter routes, execution, console output, and the `/api/health` endpoint.
-
-### Program Editor
-
-After login, select **Program Editor** in the sidebar. Choose C, C++, Java, or Python, load or paste a program, choose Very Slow through Very Fast, and click **Run Program**. The editor shows stdout, compiler/runtime errors, recognized data-structure steps, and play/pause/previous/next/reset controls.
-
-`POST /api/program/run` executes Python directly and compiles C/C++/Java when the corresponding local toolchain is installed. Java requires `javac` and `java` on PATH. Arbitrary code that cannot be safely mapped to a supported data structure still displays normal program output without a fabricated visualization.
-
-## Current limitations and roadmap
-
-- The local Copilot is a deterministic educational tutor; provider-backed AI is optional.
-- Arbitrary code is not given a fabricated visualization when supported operations cannot be recognized safely.
-- Google sign-in requires OAuth client configuration.
-- The subprocess runner should receive an additional container or OS-level sandbox for untrusted multi-user production workloads.
-
-Planned improvements include stronger isolated execution, richer provider-backed AI explanations, expanded challenge and quiz flows, and additional advanced data structures such as AVL trees.
-#   A I - D S - V I S U A L I Z E R - P R O  
- 
-=======
-# AI-DS-VISUALIZER-PRO
->>>>>>> dee278b3234f1cd2577144d62d094588c3d3b1fd
+To make this repository-ready, I would need access to the project files—especially `package.json`, the source tree, environment/configuration files, and any existing `LICENSE` or screenshots.
