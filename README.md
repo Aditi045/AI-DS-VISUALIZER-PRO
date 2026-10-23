@@ -154,9 +154,6 @@ For significant changes, consider opening an issue first to discuss the proposed
 
 No license information was provided in the project details available for this README. Check the repository for a `LICENSE` file and update this section with its license before publishing. Without an applicable license, others may not have permission to use, modify, or distribute the project.
 
-## Project Links
-
-- **GitHub repository:** [SairajAgawane/AI--DS-Visualizer-Pro](https://github.com/SairajAgawane/AI--DS-Visualizer-Pro)
 
 ---
 
